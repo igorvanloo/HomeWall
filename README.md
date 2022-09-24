@@ -14,15 +14,15 @@ I wanted to make this app for the following reasons:
 
 ## Progress <a name="progress"></a>
 
-- [] Create Login Pages
+- [-] Create Login Pages
     - [x] User inferface for Login page
         - [x] Make UI for *Sign In* page
         - [x] Make UI for *Sign Up* page
         - [x] Make UI for *Forgot Password* page
     - [x] Set up FireBase connection
-    - [] Third Party Login options
-        - [] Facebook login
-        - [] Google login
+    - [-] Third Party Login options
+        - [-] Facebook login
+        - [-] Google login
 - [] Create App Pages
     - [] Create *Home* page
         - [x] Create Sign out button
