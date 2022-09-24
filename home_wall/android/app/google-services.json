@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "477166782080",
+    "project_id": "homewall-1206d",
+    "storage_bucket": "homewall-1206d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477166782080:android:da638fd7e72b16ba414865",
+        "android_client_info": {
+          "package_name": "com.example.home_wall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477166782080-6g4m5mov8qdl4cu49u8krqlf67u1224m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1ZRJ6ce0ADLZCMVgYDSibQzqnUX77JnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477166782080-6g4m5mov8qdl4cu49u8krqlf67u1224m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "477166782080-535k3htjped527l88cifke8gmm9h5lmr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.homeWall"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
