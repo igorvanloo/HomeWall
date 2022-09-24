@@ -1,12 +1,15 @@
 // Flutter
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 
 // Firebase
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 
 // others
 import 'package:image_picker/image_picker.dart';
+import 'dart:ui' as ui;
 
 // Files
 import 'package:home_wall/helper/userdata_service.dart';
@@ -14,32 +17,25 @@ import 'package:home_wall/helper/userdata_service.dart';
 class AddRoutePage extends StatefulWidget {
   String? userId;
   String? wallName;
+  String? wallURL;
 
-  AddRoutePage({Key? key, this.userId, this.wallName}) : super(key: key);
+  AddRoutePage({Key? key, this.userId, this.wallName, this.wallURL})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _AddRoutePage();
 }
 
 class _AddRoutePage extends State<AddRoutePage> {
-  final _offsets = <Offset>[];
+  final _points = <List>[];
   File? _image;
   final imagePicker = ImagePicker();
   final TextEditingController routeNameController = TextEditingController();
   final TextEditingController routeGradeController = TextEditingController();
   String? downloadURL;
-
-  Future imagePickerMethod() async {
-    final pick = await imagePicker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pick != null) {
-        _image = File(pick.path);
-      } else {
-        showSnackBar("No file selected", const Duration(seconds: 3));
-      }
-    });
-  }
+  Color colour = Colors.black;
+  static PictureRecorder recorder = PictureRecorder();
+  Canvas canvas = Canvas(recorder);
 
   Future uploadImage() async {
     Reference ref = FirebaseStorage.instance
@@ -100,15 +96,13 @@ class _AddRoutePage extends State<AddRoutePage> {
                               onTapDown: (details) => {
                                 print(details.localPosition),
                                 setState(() {
-                                  _offsets.add(details.localPosition);
+                                  _points.add([details.localPosition, colour]);
                                 })
                               },
                               child: CustomPaint(
-                                painter: MyCustomPainter(_offsets),
-                                child: _image == null
-                                    ? const Center(
-                                        child: Text("No image uploaded"))
-                                    : Image.file(_image!),
+                                foregroundPainter:
+                                    MyCustomPainter(_points, canvas),
+                                child: Image.network(widget.wallURL!),
                               ),
                             ),
                           ),
@@ -117,36 +111,46 @@ class _AddRoutePage extends State<AddRoutePage> {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  imagePickerMethod();
+                                  colour = Colors.blue;
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.blue),
+                                child: const Text("Holds"),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  colour = Colors.yellow;
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.yellow),
+                                child: const Text("Footholds"),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  colour = Colors.green;
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green),
+                                child: const Text("Start holds"),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  colour = Colors.red;
                                 },
                                 style: ElevatedButton.styleFrom(
                                     primary: Colors.red),
-                                child: const Text("Select Image"),
+                                child: const Text("End Holds"),
                               ),
                               ElevatedButton(
                                   onPressed: () {
-                                    if (routeNameController.text.isEmpty) {
-                                      showSnackBar("Please choose a Route Name",
-                                          const Duration(seconds: 5));
-                                    }
-                                    if (routeGradeController.text.isEmpty) {
-                                      showSnackBar(
-                                          "Please choose a Route grade",
-                                          const Duration(seconds: 5));
-                                    }
-                                    if (_image == null) {
-                                      showSnackBar("Please Select an Image",
-                                          const Duration(seconds: 5));
-                                    } else {
-                                      uploadImage().whenComplete(() =>
-                                          showSnackBar(
-                                              "New Route Added Successfully",
-                                              const Duration(seconds: 3)));
-                                    }
+                                    _points.removeLast();
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.red),
-                                  child: const Text("Add New Route"))
+                                  child: const Icon(Icons.undo)),
                             ],
                           )
                         ],
@@ -194,6 +198,30 @@ class _AddRoutePage extends State<AddRoutePage> {
                         )),
                   ),
                 ),
+                ElevatedButton(
+                    onPressed: () async {
+                      Picture picture = recorder.endRecording();
+                      final img = picture.toImage(300, 400);
+
+                      if (routeNameController.text.isEmpty) {
+                        showSnackBar("Please choose a Route Name",
+                            const Duration(seconds: 5));
+                      }
+                      if (routeGradeController.text.isEmpty) {
+                        showSnackBar("Please choose a Route grade",
+                            const Duration(seconds: 5));
+                      }
+                      if (_image == null) {
+                        showSnackBar("Please Select an Image",
+                            const Duration(seconds: 5));
+                      } else {
+                        uploadImage().whenComplete(() => showSnackBar(
+                            "New Route Added Successfully",
+                            const Duration(seconds: 3)));
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(primary: Colors.red),
+                    child: const Text("Add New Route"))
               ],
             ),
           ),
@@ -204,19 +232,23 @@ class _AddRoutePage extends State<AddRoutePage> {
 }
 
 class MyCustomPainter extends CustomPainter {
-  final offsets;
-
-  MyCustomPainter(this.offsets) : super();
+  final points;
+  final canvas;
+  MyCustomPainter(this.points, this.canvas) : super();
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint();
+  void paint(canvas, Size size) {
+    canvas.save();
 
-    for (var offset in offsets) {
-      canvas.drawCircle(offset, 2, paint);
+    for (var point in points) {
+      var offset = point[0];
+      var colour = point[1];
+
+      final Paint paint = Paint()..color = colour;
+      canvas.drawCircle(offset, 3, paint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

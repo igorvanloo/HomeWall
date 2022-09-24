@@ -1,4 +1,6 @@
 // Flutter
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 // Firebase
@@ -14,8 +16,9 @@ import 'package:home_wall/walls/showroute.dart';
 
 class RoutesPage extends StatefulWidget {
   String? wallName;
+  String? wallURL;
 
-  RoutesPage({Key? key, this.wallName}) : super(key: key);
+  RoutesPage({Key? key, this.wallName, this.wallURL}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _RoutesPage();
@@ -189,6 +192,7 @@ class _RoutesPage extends State<RoutesPage> {
                           builder: (BuildContext context) => AddRoutePage(
                                 userId: loggedInUser.uid,
                                 wallName: widget.wallName,
+                                wallURL: widget.wallURL,
                               )));
                 });
               },

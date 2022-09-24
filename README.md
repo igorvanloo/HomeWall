@@ -41,6 +41,7 @@ I wanted to make this app for the following reasons:
                 - [x] Upload Image to FireBase Storage 
                 - [x] Add Wall name and download url to FireBase FireStore Database
         - [x] Display new walls with name and image
+        - [x] Make walls deletable by sliding it
     - [ ] Create *routes* page for each wall added
         - [x] Make UI for *routes* page
         - [ ] Create *Add Route* button
@@ -48,8 +49,10 @@ I wanted to make this app for the following reasons:
             - [x] Add grade for route
             - [ ] Create your own route
                 - [x] Display correct wall to edit
-                - [ ] Add editing option to draw ontop of wal
+                - [x] Add editing option to draw ontop of wall
+                - [ ] Upload new route to FireBase FireStore
             - [x] Add route name, downloard url, route grade, sent/un-sent to FireBase FireStore Database
+            - [x] Make routes deletable by sliding it
         - [x] Display new routes with name, grade, and if it is sent or not
         - [x] Make route clickable to view route
             - [x] Display correct route image 

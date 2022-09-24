@@ -98,6 +98,7 @@ class _WallPage extends State<WallPage> {
                                         builder: (BuildContext context) =>
                                             RoutesPage(
                                               wallName: wallName,
+                                              wallURL: url,
                                             )));
                               });
                             },
