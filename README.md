@@ -3,6 +3,8 @@
 ## Table of Content
 1. [About Homewall](#about)
 2. [Progress](#progress)
+    1. [Road Map](#road-map-of-progress)
+    2. [Future Updates](#future-updates)
 
 
 ## About Homewall <a name="about"></a>
