@@ -4,6 +4,7 @@
 1. [About Homewall](#about)
 2. [Progress](#progress)
 
+
 ## About Homewall <a name="about"></a>
 
 An app **(in development)** to create your own routes on any wall that you can take a picture of!
@@ -13,6 +14,8 @@ I wanted to make this app for the following reasons:
 2. The most popular app on the climbing market [Stōkt](https://www.getstokt.com/) has caused me frustration in the past, and it is not free for gyms to use.
 
 ## Progress <a name="progress"></a>
+
+### Road Map of Progress
 
 - [ ] Create Login Pages
     - [x] User inferface for Login page
@@ -50,3 +53,7 @@ I wanted to make this app for the following reasons:
             - [x] Display correct route image 
             - [x] Add option to update route grade
             - [x] Add button to declare route as sent 
+
+### Future Updates
+
+Instead of having user create routes in app I want to use a REST API to call a python file which performs a holddetector see [HoldDetector.py](https://github.com/igorvanloo/HomeWall/blob/main/python/HoldDetector.py). I have already made a fairly accurate Hold Detector using OpenCV.
