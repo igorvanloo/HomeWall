@@ -14,19 +14,19 @@ I wanted to make this app for the following reasons:
 
 ## Progress <a name="progress"></a>
 
-- [-] Create Login Pages
+- [ ] Create Login Pages
     - [x] User inferface for Login page
         - [x] Make UI for *Sign In* page
         - [x] Make UI for *Sign Up* page
         - [x] Make UI for *Forgot Password* page
     - [x] Set up FireBase connection
-    - [-] Third Party Login options
-        - [-] Facebook login
-        - [-] Google login
-- [] Create App Pages
-    - [] Create *Home* page
+    - [ ] Third Party Login options
+        - [ ] Facebook login
+        - [ ] Google login
+- [ ] Create App Pages
+    - [ ] Create *Home* page
         - [x] Create Sign out button
-        - [] Make UI for Homepage
+        - [ ] Make UI for Homepage
     - [x] Create *Walls* page
         - [x] Make UI for *Walls* page
         - [x] Create *Add Wall* button
@@ -36,14 +36,14 @@ I wanted to make this app for the following reasons:
                 - [x] Upload Image to FireBase Storage 
                 - [x] Add Wall name and download url to FireBase FireStore Database
         - [x] Display new walls with name and image
-    - [] Create *routes* page for each wall added
+    - [ ] Create *routes* page for each wall added
         - [x] Make UI for *routes* page
-        - [] Create *Add Route* button
+        - [ ] Create *Add Route* button
             - [x] Add name for route
             - [x] Add grade for route
-            - [] Create your own route
+            - [ ] Create your own route
                 - [x] Display correct wall to edit
-                - [] Add editing option to draw ontop of wal
+                - [ ] Add editing option to draw ontop of wal
             - [x] Add route name, downloard url, route grade, sent/un-sent to FireBase FireStore Database
         - [x] Display new routes with name, grade, and if it is sent or not
         - [x] Make route clickable to view route
